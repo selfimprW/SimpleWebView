@@ -26,6 +26,7 @@ import android.webkit.WebViewClient;
  * Modify time：  <br/>
  */
 public class SimpleWebViewClient extends WebViewClient {
+
     public SimpleWebViewClient() {
         super();
     }
