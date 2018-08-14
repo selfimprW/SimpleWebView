@@ -107,7 +107,6 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         });
 
 
-
 //        webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
 //        webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
 //        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
@@ -180,6 +179,30 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         WebView.HitTestResult result = ((WebView) v).getHitTestResult();
         result.getType();
         result.getExtra();
+        switch (result.getType()) {
+            case WebView.HitTestResult.ANCHOR_TYPE://api 14废弃  1
+                break;
+            case WebView.HitTestResult.PHONE_TYPE: //打开一个电话号码   2
+                break;
+            case WebView.HitTestResult.GEO_TYPE: //打开一个map地址   3
+                break;
+            case WebView.HitTestResult.EMAIL_TYPE://打开一个邮件地址   4
+                break;
+            case WebView.HitTestResult.IMAGE_TYPE: //打开一个html img标签   5
+                //type:5,extra:https://developers.weixin.qq.com/miniprogram/dev/image/quickstart/basic/register.png?t=18081317
+                break;
+            case WebView.HitTestResult.IMAGE_ANCHOR_TYPE: //api14废弃    6
+                break;
+            case WebView.HitTestResult.SRC_ANCHOR_TYPE: //打开一个html a标签，内容是一个http网址    7
+                // type:7,extra:https://mp.weixin.qq.com/wxopen/waregister?action=step1
+                break;
+            case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE://打开一个html a标签，内容是由http及img标签组成    8
+                break;
+            case WebView.HitTestResult.EDIT_TEXT_TYPE: //打开一个可编辑的区域    9
+                break;
+            case WebView.HitTestResult.UNKNOWN_TYPE: //打开的内容未知    0
+                break;
+        }
         Log.e("wjc", "onLongClick--->type:" + result.getType() + ",extra:" + result.getExtra());
         return false;
     }
