@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * description：  保存图片的util <br/>
+ * description：  保存图片的util https://blog.csdn.net/iromkoear/article/details/70164433 <br/>
  * ===============================<br/>
- * creator：Feng Fengjun<br/>
+ * creator：wangjiacheng<br/>
  * create time：2016/8/3 17:14<br/>
  * ===============================<br/>
  * reasons for modification：  <br/>
@@ -117,15 +117,38 @@ public class SaveImageUtil {
         try {
             URL url = new URL(originalUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoInput(true);
+
+//            conn.setConnectTimeout(5 * 1000);//设置网络连接超时
+//            conn.setReadTimeout(10 * 1000);//设置读取数据超时
+            conn.setDoInput(true);//允许输入流，即允许下载，默认情况下是true;
+			/*
+			允许输出流，即允许上传, 默认情况下是false;
+			 */
+//            conn.setDoOutput(true);
+//            conn.setUseCaches(false); //不使用缓冲
+
+            // 3.判断服务器给我们返回的状态信息。
+            // 200 成功 302 从定向 404资源没找到 5xx 服务器内部错误
+            Log.e("wjc","code1:"+conn.getResponseCode());
             conn.connect();
+            Log.e("wjc","code2:"+conn.getResponseCode());
             InputStream inputStream = conn.getInputStream();
+            fos = new FileOutputStream(saveFile);
+
+//            byte[] buffer = new byte[1024];
+//            int len = -1;
+//            while ((len = inputStream.read(buffer)) != -1) {
+//                fos.write(buffer, 0, len);
+//            }
+//            inputStream.close();
+//            fos.close();
+
             Bitmap imgSave = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
-            fos = new FileOutputStream(saveFile);
             boolean compress = imgSave.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
+            conn.disconnect();
             //图片保存成功
             if (compress) {
                 result = 0;
