@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
+
+import java.util.Map;
 
 /**
  * description： https://blog.csdn.net/carson_ho/article/details/52693322
@@ -117,7 +120,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     }
 
     private void loadUrl() {
-        mWebView.loadUrl(API.miniprogram);
+        mWebView.loadUrl(API.git);
 
         // 格式规定为:file:///android_asset/文件名.html
 //        mWebView.loadUrl("file:///android_asset/localHtml.html");
@@ -176,9 +179,16 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     //https://www.jianshu.com/p/16713361bbd3
     @Override
     public boolean onLongClick(View v) {
-        WebView.HitTestResult result = ((WebView) v).getHitTestResult();
-        result.getType();
-        result.getExtra();
+        WebView.HitTestResult result = null;
+        try {
+            result = ((WebView) v).getHitTestResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (result == null) {
+            return false;
+        }
+        final String extra = result.getExtra();
         switch (result.getType()) {
             case WebView.HitTestResult.ANCHOR_TYPE://api 14废弃  1
                 break;
@@ -190,6 +200,19 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
                 break;
             case WebView.HitTestResult.IMAGE_TYPE: //打开一个html img标签   5
                 //type:5,extra:https://developers.weixin.qq.com/miniprogram/dev/image/quickstart/basic/register.png?t=18081317
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Map<String, Object> map = SaveImageUtil.downloadImage(extra);
+                        final String mapSgr = map.toString();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(),mapSgr,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).start();
                 break;
             case WebView.HitTestResult.IMAGE_ANCHOR_TYPE: //api14废弃    6
                 break;
@@ -197,6 +220,22 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
                 // type:7,extra:https://mp.weixin.qq.com/wxopen/waregister?action=step1
                 break;
             case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE://打开一个html a标签，内容是由http及img标签组成    8
+                //type:8,extra:https://github.com/Piasy/BigImageViewer/raw/master/art/fresco_big_image_viewer_demo.gif
+                //type:8,extra:https://github.com/Piasy/BigImageViewer/raw/master/art/android_studio_memory_monitor.png
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Map<String, Object> map = SaveImageUtil.downloadImage(extra);
+                        final String mapSgr = map.toString();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(),mapSgr,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).start();
                 break;
             case WebView.HitTestResult.EDIT_TEXT_TYPE: //打开一个可编辑的区域    9
                 break;

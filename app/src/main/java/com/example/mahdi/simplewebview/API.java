@@ -12,5 +12,6 @@ package com.example.mahdi.simplewebview;
  */
 public interface API {
     String miniprogram = "https://developers.weixin.qq.com/miniprogram/dev/index.html";
+    String git = "https://github.com/Piasy/BigImageViewer?utm_source=gold_browser_extension";
 
 }
