@@ -53,18 +53,22 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+            return;
         }
+        if (webViewFragment != null && webViewFragment.canGoBack()) {
+            return;
+        }
+        super.onBackPressed();
+
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (webViewFragment != null) {
-            return webViewFragment.onKeyDown(keyCode, event);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (webViewFragment != null) {
+//            return webViewFragment.onKeyDown(keyCode, event);
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

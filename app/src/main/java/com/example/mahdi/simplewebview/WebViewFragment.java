@@ -155,8 +155,8 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         mWebView.onPause();
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (mWebView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {//点击返回按钮的时候判断有没有上一页
+    public boolean canGoBack() {
+        if (mWebView.canGoBack()) {//点击返回按钮的时候判断有没有上一页
             mWebView.goBack(); // goBack()表示返回webView的上一页面
             return true;
         }
@@ -208,7 +208,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getActivity(),mapSgr,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), mapSgr, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -231,7 +231,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getActivity(),mapSgr,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), mapSgr, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
