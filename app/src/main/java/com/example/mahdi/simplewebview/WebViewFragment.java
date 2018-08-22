@@ -85,7 +85,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
          * LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
          * LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
          */
-        if (isNetworkConnected(getActivity())) {
+        if (NetworkUtil.isNetworkConnected()) {
             webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);//根据cache-control决定是否从网络上取数据。
         } else {
             webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);//没网，则从本地获取，即离线加载
@@ -132,16 +132,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         //mWebView.loadUrl("file:///mnt/sdcard/database/taobao.html");
     }
 
-    public boolean isNetworkConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            if (mNetworkInfo != null) {
-                return mNetworkInfo.isAvailable();
-            }
-        }
-        return false;
-    }
+
 
     @Override
     public void onResume() {
