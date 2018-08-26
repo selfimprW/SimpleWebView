@@ -6,28 +6,33 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_git_doc"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_send"
             android:title="GitDocument" />
         <item
             android:id="@+id/nav_kotlin"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_send"
             android:title="Kotlin" />
         <item
             android:id="@+id/nav_android_interview"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_send"
             android:title="Android面试指南" />
         <item
             android:id="@+id/nav_android_gradle"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_send"
             android:title="Android Gradle插件中文指南" />
         <item
             android:id="@+id/nav_min_program"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_send"
             android:title="小程序" />
         <item
             android:id="@+id/nav_design_pattern"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_send"
             android:title="设计模式" />
+
+        <item
+            android:id="@+id/nav_gank_io"
+            android:icon="@drawable/ic_menu_send"
+            android:title="gank.io" />
     </group>
 
     <item android:title="Communicate">
@@ -38,8 +43,8 @@
                 android:title="Share" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@drawable/ic_menu_manage"
+                android:title="设置" />
         </menu>
     </item>
 

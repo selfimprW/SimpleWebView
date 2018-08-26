@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity
             api = API.android_interview;
         } else if (id == R.id.nav_android_gradle) {
             api = API.android_gradle;
+        } else if (id == R.id.nav_gank_io) {
+            api = API.gank_io;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

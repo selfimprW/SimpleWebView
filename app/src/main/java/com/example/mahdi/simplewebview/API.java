@@ -23,4 +23,6 @@ public interface API {
 
     String android_gradle = "https://love2.io/@meiritugua/doc/GradleGuideBook";
 
+    String gank_io = "https://gank.io";
+
 }
