@@ -121,6 +121,7 @@ public class SimpleWebViewClient extends WebViewClient {
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
+        Log.e("wjc", "onReceivedError---->errorCode:" + errorCode + ",description:" + description+",failingUrl:"+failingUrl);
     }
 
 
@@ -128,6 +129,7 @@ public class SimpleWebViewClient extends WebViewClient {
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
         super.onReceivedError(view, request, error);
+        Log.e("wjc", "onReceivedError---->request:" + request + ",error:" + error);
     }
 
     @Override
@@ -154,6 +156,7 @@ public class SimpleWebViewClient extends WebViewClient {
      */
     @Override
     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        handler.proceed(); //接受所有网站的证书
         super.onReceivedSslError(view, handler, error);
     }
 

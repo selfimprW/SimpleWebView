@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +85,11 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         //声明WebSettings子类
         WebSettings webSettings = mWebView.getSettings();
 
+//        在Android 5.0之后，WebView默认不允许Https + Http的混合使用方式，所以当Url是Https的，图片资源是Http时，导致页面加载失败。需要设置 MixedContentMode属性允许Https+Http混用。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
         //支持Javascript交互
         webSettings.setJavaScriptEnabled(true);
         //增加js交互接口
@@ -133,13 +137,15 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         });
 
 
-//        webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
-//        webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
-//        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
+        //DOM storage 是HTML5提供的一种标准接口，主要将键值对存储在本地，在页面加载完毕后可以通过JavaScript来操作这些数据，但是Android 默认是没有开启这个功能的，则导致H5页面加载失败
+        // todo .如果不开启，则Api.android_interview不显示
+        webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
+        webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
+        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
 //
-//        String cacheDirPath = getActivity().getExternalCacheDir().getAbsolutePath() + APP_CACAHE_DIRNAME;
-//        Log.e("wjc", "setAppCachePath--->path:" + cacheDirPath);
-//        webSettings.setAppCachePath(cacheDirPath); //设置  Application Caches 缓存目录
+        String innerCacheDir = SimpleApp.getInstance().getCacheDir().getPath();
+        Log.e("wjc", "setAppCachePath--->path:" + innerCacheDir);
+        webSettings.setAppCachePath(innerCacheDir); //设置  Application Caches 缓存目录
     }
 
     private void loadUrl() {
