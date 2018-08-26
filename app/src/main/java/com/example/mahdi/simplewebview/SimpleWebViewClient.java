@@ -58,7 +58,7 @@ public class SimpleWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-        Log.e("wjc","onPageStarted---->url:"+url);
+        Log.e("wjc", "onPageStarted---->url:" + url);
     }
 
     /**
@@ -70,11 +70,12 @@ public class SimpleWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        Log.e("wjc","onPageFinished---->url:"+url);
+        Log.e("wjc", "onPageFinished---->url:" + url + ",title:" + view.getTitle());
     }
 
     /**
      * 作用：在加载页面资源时会调用，每一个资源（比如图片）的加载都会调用一次。
+     *
      * @param view
      * @param url
      */
@@ -87,6 +88,7 @@ public class SimpleWebViewClient extends WebViewClient {
     public void onPageCommitVisible(WebView view, String url) {
         super.onPageCommitVisible(view, url);
     }
+
     //监听WebView发出的请求并做相应的处理
     //浏览器的渲染以及资源加载都是在一个线程中，如果在shouldInterceptRequest处理时间过长，WebView界面就会阻塞
     //21以下的
@@ -94,6 +96,7 @@ public class SimpleWebViewClient extends WebViewClient {
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         return super.shouldInterceptRequest(view, url);
     }
+
     //监听WebView发出的请求并做相应的处理
     //浏览器的渲染以及资源加载都是在一个线程中，如果在shouldInterceptRequest处理时间过长，WebView界面就会阻塞
     //21以上的
@@ -108,8 +111,8 @@ public class SimpleWebViewClient extends WebViewClient {
     }
 
     /**
+     * //页面加载出现错误,23以下的 ,.访问错误时回调，例如访问网页时报错404，在这个方法回调的时候可以加载错误页面。
      *
-     //页面加载出现错误,23以下的 ,.访问错误时回调，例如访问网页时报错404，在这个方法回调的时候可以加载错误页面。
      * @param view
      * @param errorCode
      * @param description
@@ -118,6 +121,7 @@ public class SimpleWebViewClient extends WebViewClient {
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
+        Log.e("wjc", "onReceivedError---->errorCode:" + errorCode + ",description:" + description+",failingUrl:"+failingUrl);
     }
 
 
@@ -125,6 +129,7 @@ public class SimpleWebViewClient extends WebViewClient {
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
         super.onReceivedError(view, request, error);
+        Log.e("wjc", "onReceivedError---->request:" + request + ",error:" + error);
     }
 
     @Override
@@ -144,12 +149,14 @@ public class SimpleWebViewClient extends WebViewClient {
 
     /**
      * 处理https请求
+     *
      * @param view
      * @param handler
      * @param error
      */
     @Override
     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        handler.proceed(); //接受所有网站的证书
         super.onReceivedSslError(view, handler, error);
     }
 

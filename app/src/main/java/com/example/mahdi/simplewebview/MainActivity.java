@@ -3,6 +3,7 @@ package com.example.mahdi.simplewebview;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,20 +14,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
+//https://github.com/youlookwhat/WebViewStudy
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private WebViewFragment webViewFragment;
+    private WebViewFragment curWebFragment;
+    private DrawerLayout drawer;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -44,18 +48,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        webViewFragment = new WebViewFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, webViewFragment).commitAllowingStateLoss();
+
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+        toolbar.setSubtitle(menuItem.getTitle());
+
+        curWebFragment = WebViewFragment.getInstance(menuItem.getTitleCondensed().toString());
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, curWebFragment).commitAllowingStateLoss();
+
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
             return;
         }
-        if (webViewFragment != null && webViewFragment.canGoBack()) {
+        if (curWebFragment != null && curWebFragment.canGoBack()) {
             return;
         }
         super.onBackPressed();
@@ -85,7 +95,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            curWebFragment.retryLoad();
             return true;
         }
 
@@ -97,22 +108,33 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        String api = item.getTitleCondensed().toString();
+        if (id == R.id.nav_git_doc) {
+//            api = API.git_doc;
+        } else if (id == R.id.nav_kotlin) {
+//            api = API.kotlin_doc;
+        } else if (id == R.id.nav_min_program) {
+//            api = API.mini_program;
+        } else if (id == R.id.nav_design_pattern) {
+//            api = API.design_pattern;
+        } else if (id == R.id.nav_android_interview) {
+//            api = API.android_interview;
+        } else if (id == R.id.nav_android_gradle) {
+//            api = API.android_gradle;
+        } else if (id == R.id.nav_gank_io) {
+//            api = API.gank_io;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (!TextUtils.isEmpty(api) && !api.equals(curWebFragment.getCurWebApi())) {
+            curWebFragment = WebViewFragment.getInstance(api);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, curWebFragment).commitAllowingStateLoss();
+            toolbar.setSubtitle(item.getTitle());
+        }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
