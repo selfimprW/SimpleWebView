@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 /**
  * description： https://blog.csdn.net/carson_ho/article/details/52693322
  * https://blog.csdn.net/yk377657321/article/details/71668608 <br/>
@@ -35,6 +37,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     private static final String WEB_API = "web_api";
     private SimpleWebView mWebView;
     private String webApi;
+    private SmoothProgressBar progress;
 
     public static WebViewFragment getInstance(String api) {
         WebViewFragment fragment = new WebViewFragment();
@@ -61,6 +64,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_webview, container, false);
+        progress = rootView.findViewById(R.id.progress);
         mWebView = rootView.findViewById(R.id.webview);
         initWebView();
         return rootView;
