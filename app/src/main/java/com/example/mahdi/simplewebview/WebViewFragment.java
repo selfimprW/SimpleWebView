@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import java.util.Map;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 
 /**
  * description： https://blog.csdn.net/carson_ho/article/details/52693322
@@ -65,6 +67,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_webview, container, false);
         progress = rootView.findViewById(R.id.progress);
+//        progress.setIndeterminateDrawable(new SmoothProgressDrawable.Builder(getActivity()).interpolator(new AccelerateInterpolator()).build());
         mWebView = rootView.findViewById(R.id.webview);
         initWebView();
         return rootView;
