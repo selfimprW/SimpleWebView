@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,8 +33,30 @@ import java.util.Map;
  */
 public class WebViewFragment extends Fragment implements View.OnLongClickListener {
 
-    private static final String APP_CACAHE_DIRNAME = "web_wjc";
+    private static final String WEB_API = "web_api";
     private SimpleWebView mWebView;
+    private String webApi;
+
+    public static WebViewFragment getInstance(String api) {
+        WebViewFragment fragment = new WebViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(WEB_API, api);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public String getCurWebApi() {
+        return webApi;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            webApi = bundle.getString(WEB_API);
+        }
+    }
 
     @Nullable
     @Override
@@ -120,7 +143,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     }
 
     private void loadUrl() {
-        mWebView.loadUrl(API.git);
+        mWebView.loadUrl(webApi);
 
         // 格式规定为:file:///android_asset/文件名.html
 //        mWebView.loadUrl("file:///android_asset/localHtml.html");

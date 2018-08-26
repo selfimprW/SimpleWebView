@@ -11,7 +11,13 @@ package com.example.mahdi.simplewebview;
  * Modify time：  <br/>
  */
 public interface API {
-    String miniprogram = "https://developers.weixin.qq.com/miniprogram/dev/index.html";
-    String git = "https://github.com/Piasy/BigImageViewer?utm_source=gold_browser_extension";
+    String mini_program = "https://developers.weixin.qq.com/miniprogram/dev/index.html";
+
+    String git_doc = "https://github.com/WizDocument";
+
+    String kotlin_doc = "http://www.kotlindoc.cn/";
+
+    String design_pattern = "https://www.cnblogs.com/tongkey/p/7170826.html";
+    String android_interview = "https://love2.io/@funkkiid/doc/android_interview";
 
 }

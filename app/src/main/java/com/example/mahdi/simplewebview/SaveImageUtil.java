@@ -66,7 +66,7 @@ public class SaveImageUtil {
         }
 
         // 通知图库更新
-        SimpleApp.getInstannce().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageSaveFile)));
+        SimpleApp.getInstance().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageSaveFile)));
         if (result != 0) {
             try {
                 imageSaveFile.delete();

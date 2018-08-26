@@ -5,21 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_git_doc"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="GitDocument" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_kotlin"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Kotlin" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_android_interview"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Android面试指南" />
+        <item
+            android:id="@+id/nav_min_program"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="小程序" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_design_pattern"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="设计模式" />
     </group>
 
     <item android:title="Communicate">

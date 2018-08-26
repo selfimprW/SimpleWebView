@@ -23,7 +23,7 @@ public class SimpleApp extends Application {
         context = this;
     }
 
-    public static Context getInstannce() {
+    public static Context getInstance() {
         return context;
     }
 }
