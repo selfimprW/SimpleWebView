@@ -144,7 +144,6 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
 
     private void loadUrl() {
         mWebView.loadUrl(webApi);
-
         // 格式规定为:file:///android_asset/文件名.html
 //        mWebView.loadUrl("file:///android_asset/localHtml.html");
         //方式1. 加载远程网页：
@@ -267,5 +266,9 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         }
         Log.e("wjc", "onLongClick--->type:" + result.getType() + ",extra:" + result.getExtra());
         return false;
+    }
+
+    public void retryLoad() {
+        mWebView.reload();
     }
 }

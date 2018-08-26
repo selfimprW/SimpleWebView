@@ -18,6 +18,9 @@ public interface API {
     String kotlin_doc = "http://www.kotlindoc.cn/";
 
     String design_pattern = "https://www.cnblogs.com/tongkey/p/7170826.html";
-    String android_interview = "https://love2.io/@funkkiid/doc/android_interview";
+
+    String android_interview = "https://love2.io/@funkkiid/doc/android_interview/README.md";
+
+    String android_gradle = "https://love2.io/@meiritugua/doc/GradleGuideBook";
 
 }

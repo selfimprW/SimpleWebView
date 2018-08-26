@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Android面试指南" />
         <item
+            android:id="@+id/nav_android_gradle"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Android Gradle插件中文指南" />
+        <item
             android:id="@+id/nav_min_program"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="小程序" />

@@ -3,6 +3,7 @@ package com.example.mahdi.simplewebview;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,12 +20,13 @@ public class MainActivity extends AppCompatActivity
 
     private WebViewFragment curWebFragment;
     private DrawerLayout drawer;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -48,9 +50,10 @@ public class MainActivity extends AppCompatActivity
         curWebFragment = WebViewFragment.getInstance(API.git_doc);
         getSupportFragmentManager().beginTransaction().replace(R.id.content, curWebFragment).commitAllowingStateLoss();
 
-        Menu menu= navigationView.getMenu();
+        Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
+        toolbar.setSubtitle(menuItem.getTitle());
     }
 
     @Override
@@ -89,7 +92,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            curWebFragment.retryLoad();
             return true;
         }
 
@@ -103,7 +107,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         String api = null;
         if (id == R.id.nav_git_doc) {
-            // Handle the camera action
             api = API.git_doc;
         } else if (id == R.id.nav_kotlin) {
             api = API.kotlin_doc;
@@ -113,15 +116,18 @@ public class MainActivity extends AppCompatActivity
             api = API.design_pattern;
         } else if (id == R.id.nav_android_interview) {
             api = API.android_interview;
+        } else if (id == R.id.nav_android_gradle) {
+            api = API.android_gradle;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
 
-        if (api != null && !api.equals(curWebFragment.getCurWebApi())) {
+        if (!TextUtils.isEmpty(api) && !api.equals(curWebFragment.getCurWebApi())) {
             curWebFragment = WebViewFragment.getInstance(api);
             getSupportFragmentManager().beginTransaction().replace(R.id.content, curWebFragment).commitAllowingStateLoss();
+            toolbar.setSubtitle(item.getTitle());
         }
 
         drawer.closeDrawer(GravityCompat.START);
