@@ -47,13 +47,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        curWebFragment = WebViewFragment.getInstance(API.git_doc);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, curWebFragment).commitAllowingStateLoss();
 
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
         toolbar.setSubtitle(menuItem.getTitle());
+
+        curWebFragment = WebViewFragment.getInstance(menuItem.getTitleCondensed().toString());
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, curWebFragment).commitAllowingStateLoss();
+
     }
 
     @Override
@@ -105,21 +107,21 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        String api = null;
+        String api = item.getTitleCondensed().toString();
         if (id == R.id.nav_git_doc) {
-            api = API.git_doc;
+//            api = API.git_doc;
         } else if (id == R.id.nav_kotlin) {
-            api = API.kotlin_doc;
+//            api = API.kotlin_doc;
         } else if (id == R.id.nav_min_program) {
-            api = API.mini_program;
+//            api = API.mini_program;
         } else if (id == R.id.nav_design_pattern) {
-            api = API.design_pattern;
+//            api = API.design_pattern;
         } else if (id == R.id.nav_android_interview) {
-            api = API.android_interview;
+//            api = API.android_interview;
         } else if (id == R.id.nav_android_gradle) {
-            api = API.android_gradle;
+//            api = API.android_gradle;
         } else if (id == R.id.nav_gank_io) {
-            api = API.gank_io;
+//            api = API.gank_io;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
