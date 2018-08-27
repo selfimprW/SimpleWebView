@@ -100,7 +100,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         //支持Javascript交互
         webSettings.setJavaScriptEnabled(true);
         //增加js交互接口
-        mWebView.addJavascriptInterface(new JsCallAndroidInterface(), "SimpleWebView");//添加js监听 这样html就能调用客户端
+        mWebView.addJavascriptInterface(new JsCallAndroidInterface(), "JSCallBackInterface");//添加js监听 这样html就能调用客户端
 
 
         //设置自适应屏幕，两者合用

@@ -40,6 +40,11 @@
             android:titleCondensed="@string/gank_io"
             android:icon="@drawable/ic_menu_send"
             android:title="gank.io" />
+        <item
+            android:id="@+id/nav_test"
+            android:titleCondensed="@string/test"
+            android:icon="@drawable/ic_menu_send"
+            android:title="测试" />
     </group>
 
     <item android:title="Communicate">

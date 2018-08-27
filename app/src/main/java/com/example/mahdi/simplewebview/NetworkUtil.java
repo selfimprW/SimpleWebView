@@ -16,7 +16,7 @@ import android.net.NetworkInfo;
  */
 public class NetworkUtil {
     public static boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) SimpleApp.getInstannce().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) SimpleApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager == null) {
             return false;
         }
