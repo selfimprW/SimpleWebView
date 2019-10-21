@@ -133,6 +133,10 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
         //webSettings.setAllowUniversalAccessFromFileURLs(false);
 
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
+        /**
+         * 咱Android这边儿为了提升网页加载速度，在手机系统是Android8以及以上的时候，会关闭网络图片自动加载，在页面加载完毕之后再加载img标签等指向的图片资源，
+         * 但是那个链接在浏览器打开可以发现，直接就是一张图片，没有对应的html代码，所以webview加载完毕之后，找不到要重新加载的img标签，导致图片加载不出来白屏
+         */
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
@@ -156,7 +160,7 @@ public class WebViewFragment extends Fragment implements View.OnLongClickListene
     }
 
     private void loadUrl() {
-        mWebView.loadUrl(webApi);
+        mWebView.loadUrl("https://pic1.zhuanstatic.com/zhuanzh/n_v20691f0260bef455b84dc2ede6e01e802.jpg?tt=1B73A2C2C8ABC2DD580B91175EC63EDD1571412555505&zzv=9.7.2&webview=zzn");
         // 格式规定为:file:///android_asset/文件名.html
 //        mWebView.loadUrl("file:///android_asset/localHtml.html");
         //方式1. 加载远程网页：
